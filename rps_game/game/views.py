@@ -137,7 +137,35 @@ class LoggedUserView(View):
             "user": user,
             "new_game": new_game
         }
+        return redirect("/game-view/{}".format(new_game.id))
+
+
+class GameView(View):
+    def get(self, request, id):
+        game = Game.objects.get(id=id)
+        user = request.user
+        game_creator = game.creator_id
+        ctx = {
+            "game": game,
+            "user": user,
+            "game_creator": game_creator,
+        }
         return render(
             request,
-            template_name="create.html",
-            context=ctx)
+            template_name="game_view.html",
+            context=ctx
+        )
+
+    def post(self, request, id):
+        game = Game.objects.get(id=id)
+        user = request.user
+        game_creator = game.creator_id
+        ctx = {
+            "game": game,
+            "user": user,
+        }
+        pass
+
+
+class GameRoundView(View):
+    pass

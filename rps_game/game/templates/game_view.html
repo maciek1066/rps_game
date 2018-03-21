@@ -1,0 +1,17 @@
+{% extends "main.html" %}
+
+{% block content %}
+    {% if game.opponent_id.username != None %}
+        <p>You are playing against {{ game.opponent_id.username }}</p>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+        <a href="{% url 'round' %}"><input type="button" value="Pick!"></a>
+        </form>
+    {% else %}
+        <p>Waiting for opponent...</p>
+    {% endif %}
+
+{% endblock %}
+
+

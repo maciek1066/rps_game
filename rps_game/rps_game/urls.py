@@ -23,7 +23,9 @@ from game.views import (
     UserLoginView,
     UserLogoutView,
     LoggedUserView,
-    LobbyView
+    LobbyView,
+    GameView,
+    GameRoundView,
 )
 
 urlpatterns = [
@@ -33,5 +35,7 @@ urlpatterns = [
     url('^login/$', UserLoginView.as_view(), name="login"),
     url('^logout/$', UserLogoutView.as_view(), name="logout"),
     url('^create/$', LoggedUserView.as_view(), name="create"),
-    url('^lobby/$', LobbyView.as_view(), name="lobby")
+    url('^lobby/$', LobbyView.as_view(), name="lobby"),
+    url('^game-view/(?P<id>(\d)+)$', GameView.as_view(), name="game_view"),
+    url('^game-view/(?P<id>(\d)+)/round/(?P<round_id>(\d)+)$', GameRoundView.as_view(), name="round"),
 ]

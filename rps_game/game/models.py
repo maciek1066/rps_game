@@ -28,8 +28,8 @@ DECISION = {
 class Round(models.Model):
     round = models.ForeignKey(Game, related_name='rounds', on_delete=models.CASCADE)
     # player moves
-    creator_move = models.IntegerField(choices=DECISION, null=True)
-    opponent_move = models.IntegerField(choices=DECISION, null=True)
+    creator_move = models.IntegerField(choices=DECISION, null=True, blank=True)
+    opponent_move = models.IntegerField(choices=DECISION, null=True, blank=True)
 
 
 

@@ -1,0 +1,17 @@
+{% extends "main.html" %}
+
+{% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <a href="{% url 'logout' %}"><input type="button" value="logout"></a>
+    <h4>Hello {{ user.username }}!</h4>
+    <a href="{% url 'create' %}"><input type="button" value="create game"></a>
+</form>
+    {% for game in games %}
+    <p>Player :{{ game.creator_id.username }} <input type="button" value="Join"></p>
+    <p>Created: {{ game.creation_time }}</p><br>
+    {% endfor %}
+
+{% endblock %}
+
+

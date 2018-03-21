@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -80,7 +82,7 @@ class UserLoginView(View):
             if user is not None:
                 login(request, user)
                 messages.success(request, "You are logged in")
-                return HttpResponse("Very nice")
+                return redirect("/lobby")
             return HttpResponse("Try again")
         ctx = {
             'form': form
@@ -95,5 +97,47 @@ class UserLoginView(View):
 class UserLogoutView(View):
     def get(self, request):
         logout(request)
-        return redirect(reverse('index'))
+        return redirect("/login")
 
+
+class LobbyView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        user = request.user
+        games = Game.objects.filter(opponent_id=None, completed=False)
+        games = games.order_by('-creation_time')
+        ctx = {
+            "games": games,
+            "user": user,
+        }
+        return render(
+            request,
+            template_name="lobby.html",
+            context=ctx
+        )
+
+
+class LoggedUserView(View):
+    def get(self, request):
+        user = request.user
+        ctx = {
+            "user": user,
+        }
+        return render(
+            request,
+            template_name="create.html",
+            context=ctx
+        )
+
+    def post(self, request):
+        user = request.user
+        new_game = Game.objects.create(creator_id=user)
+
+        ctx = {
+            "user": user,
+            "new_game": new_game
+        }
+        return render(
+            request,
+            template_name="create.html",
+            context=ctx)

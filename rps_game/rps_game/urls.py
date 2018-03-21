@@ -20,7 +20,10 @@ from django.conf.urls import url
 from game.views import (
     BasicView,
     AddUserView,
-    UserLoginView
+    UserLoginView,
+    UserLogoutView,
+    LoggedUserView,
+    LobbyView
 )
 
 urlpatterns = [
@@ -28,4 +31,7 @@ urlpatterns = [
     url('^$', BasicView.as_view()),
     url('^register/$', AddUserView.as_view(), name="register"),
     url('^login/$', UserLoginView.as_view(), name="login"),
+    url('^logout/$', UserLogoutView.as_view(), name="logout"),
+    url('^create/$', LoggedUserView.as_view(), name="create"),
+    url('^lobby/$', LobbyView.as_view(), name="lobby")
 ]

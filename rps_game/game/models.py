@@ -31,3 +31,5 @@ class Round(models.Model):
     creator_move = models.IntegerField(choices=DECISION, null=True)
     opponent_move = models.IntegerField(choices=DECISION, null=True)
 
+
+

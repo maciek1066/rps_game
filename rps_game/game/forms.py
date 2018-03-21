@@ -1,4 +1,5 @@
 from django import forms
+from .models import Game, Round
 
 
 class AddUserForm(forms.Form):
@@ -10,3 +11,5 @@ class AddUserForm(forms.Form):
 class LoginForm(forms.Form):
     username = forms.CharField(label='Username')
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
+
+

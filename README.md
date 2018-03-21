@@ -1,2 +1,2 @@
-# rpc_game
+# rps_game
 rock paper scissors game 

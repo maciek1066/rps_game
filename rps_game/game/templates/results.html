@@ -1,0 +1,13 @@
+{% extends "main.html" %}
+
+{% block content %}
+    {% if user.username == winner.username and cres != opres %}
+    <p>Congratulation {{ winner.username }}, you won!</p>
+    <p>score: {{ cres }}:{{ opres }}</p>
+    {% elif cres == opres %}
+    <p>remis!</p>
+
+    {% else %}
+    <p>u bad ;(</p>
+    {% endif %}
+{% endblock %}

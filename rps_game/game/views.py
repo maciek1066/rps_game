@@ -284,4 +284,45 @@ class JoinRoundView(View):
 
 class ResultsView(View):
     def get(self, request, game_id):
-        pass
+        game = Game.objects.get(id=game_id)
+        user = request.user
+        rounds = game.rounds.all()
+        c_score = 0
+        op_score = 0
+        for round in rounds:
+            if round.creator_move == 1 and round.opponent_move == 2:
+                op_score += 1
+            elif round.creator_move == 1 and round.opponent_move == 3:
+                c_score += 1
+            elif round.creator_move == 2 and round.opponent_move == 1:
+                c_score += 1
+            elif round.creator_move == 2 and round.opponent_move == 3:
+                op_score += 1
+            elif round.creator_move == 3 and round.opponent_move == 1:
+                op_score += 1
+            elif round.creator_move == 3 and round.opponent_move == 2:
+                c_score += 1
+        game.creator_results = c_score
+        game.opponent_results = op_score
+        game.save()
+        if game.creator_results > game.opponent_results:
+            game.winner = game.creator_id
+        elif game.opponent_results > game.creator_results:
+            game.winner = game.opponent_id
+        game.completed = True
+        game.save()
+        winner = game.winner
+        cres = game.creator_results
+        opres = game.opponent_results
+        ctx = {
+            "user": user,
+            "game": game,
+            "winner": winner,
+            "cres": cres,
+            "opres": opres,
+        }
+        return render(
+            request,
+            template_name="results.html",
+            context=ctx,
+        )

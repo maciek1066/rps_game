@@ -214,15 +214,17 @@ class JoinGameView(View):
         game = Game.objects.get(id=game_id)
         user = request.user
         creator = game.creator_id
+        rounds = game.rounds.filter(opponent_move=None)
         if user.username != creator.username and game.opponent_id is None:
             game.opponent_id = user
             game.save()
         elif user.username == creator.username:
-            HttpResponse("You cannot play against yourself!")
+            return HttpResponse("You cannot play against yourself!")
         ctx = {
             "game": game,
             "user": user,
             "creator": creator,
+            "rounds": rounds,
         }
         return render(
             request,
@@ -230,3 +232,37 @@ class JoinGameView(View):
             context=ctx
         )
 
+
+class JoinRoundView(View):
+    def get(self, request, game_id, round_id):
+        game = Game.objects.get(id=game_id)
+        round = Round.objects.get(id=round_id)
+        user = request.user
+        creator = game.creator_id
+        ctx = {
+            "game": game,
+            "user": user,
+            "creator": creator,
+            "round": round,
+        }
+        return render(
+            request,
+            template_name="join_round.html",
+            context=ctx
+        )
+
+    def post(self, request, game_id, round_id):
+        game = Game.objects.get(id=game_id)
+        user = request.user
+        game_creator = game.creator_id
+        round = Round.objects.get(id=round_id)
+        if "rock" in request.POST:
+            round.opponent_move = 1
+            round.save()
+        elif "paper" in request.POST:
+            round.opponent_move = 2
+            round.save()
+        elif "scissors" in request.POST:
+            round.opponent_move = 3
+            round.save()
+        return redirect("/join-game/{}".format(game.id))

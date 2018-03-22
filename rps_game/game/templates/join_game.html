@@ -1,7 +1,12 @@
 {% extends "main.html" %}
 
 {% block content %}
-<p>You are playing against {{ creator.username }}</p>
+<p>Get ready {{ user.username }},
+   You are playing against {{ creator.username }}</p>
+    {% for round in rounds %}
+<a href="{{ game.id }}/round/{{ round.id }}"><input type="button" value="Pick!"></a>
+    {% endfor %}
+
 {% endblock %}
 
 

@@ -153,6 +153,10 @@ class GameView(View):
         round_count = game.rounds.all().count()
         rounds = game.rounds.filter(opponent_move=None)
         rounds_completed = game.rounds.all().exclude(creator_move=None, opponent_move=None).order_by('-id')
+        if game.rounds.all().count() == 3 and game.rounds.all().latest('id').opponent_move is not None:
+            last_round_completed = True
+        else:
+            last_round_completed = False
         ctx = {
             "game": game,
             "user": user,
@@ -160,6 +164,7 @@ class GameView(View):
             "round_count": round_count,
             "rounds_completed": rounds_completed,
             "opponent": opponent,
+            "last_round_completed": last_round_completed,
         }
         return render(
             request,

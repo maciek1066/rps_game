@@ -8,7 +8,7 @@
             {{ form.as_p }}
         <input type="submit" value="Pick!">
         </form>
-    {% elif round_count > 2 %}
+    {% elif round_count ==  3 and last_round_completed %}
         <a href="{{ game.id }}/results/"><input type="button" value="see results"></a>
     {% else %}
         <p>Waiting for opponent...</p>
@@ -16,11 +16,10 @@
 
 {% for round in rounds_completed %}
     {% if round.opponent_move != None and round.creator_move != None %}
-<p>you played: <b>{{ round.get_creator_move_display }}</b> vs
+    <p>you played: <b>{{ round.get_creator_move_display }}</b> vs
     {{ opponent.username }}: <b>{{ round.get_opponent_move_display }}</b></p>
     {% endif %}
 {% endfor %}
-
 {% endblock %}
 
 

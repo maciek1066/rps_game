@@ -2,7 +2,7 @@
 
 {% block content %}
     {% if game.opponent_id.username != None and round_count <= 2 %}
-        <p>Get ready {{ user.username }}, You are playing against {{ game.opponent_id.username }}</p>
+        <p>{{ user.username }}, Playing against {{ game.opponent_id.username }}</p>
         <form action="" method="POST">
             {% csrf_token %}
             {{ form.as_p }}

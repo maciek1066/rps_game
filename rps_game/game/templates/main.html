@@ -10,7 +10,7 @@
     {% block content %}
     {% if user.is_authenticated %}
     <h3>Hello {{ user.username }}</h3>
-    <a href="{% url 'lobby' %}">go to lobby</a>
+    <a href="{% url 'lobby' %}"><input type="button"value="go to lobby"></a>
     {% else %}
     <a href="{% url 'register' %}">register account</a><br>
     <a href="{% url 'login' %}">log in</a>

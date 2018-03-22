@@ -1,11 +1,16 @@
 {% extends "main.html" %}
 
 {% block content %}
-<p>Get ready {{ user.username }},
-   You are playing against {{ creator.username }}</p>
+    {% if round_count < 3 %}
+<p>{{ user.username }}, Playing against {{ game.creator_id.username }}</p>
+    {% endif %}
 {% for round in rounds %}
     <a href="{{ game.id }}/round/{{ round.id }}"><input type="button" value="Pick!"></a>
 {% endfor %}
+
+{% if round_count ==  3 and last_round_completed %}
+        <a href="{{ game.id }}/results/"><input type="button" value="see results"></a>
+{% endif %}
 
 {% for round in rounds_completed %}
     {% if round.opponent_move != None and round.creator_move != None %}

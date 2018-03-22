@@ -228,17 +228,24 @@ class JoinGameView(View):
         creator = game.creator_id
         rounds = game.rounds.filter(opponent_move=None)
         rounds_completed = game.rounds.all().exclude(creator_move=None, opponent_move=None).order_by('-id')
+        round_count = game.rounds.all().count()
         if user.username != creator.username and game.opponent_id is None:
             game.opponent_id = user
             game.save()
         elif user.username == creator.username:
             return HttpResponse("You cannot play against yourself!")
+        if game.rounds.all().count() == 3 and game.rounds.all().latest('id').opponent_move is not None:
+            last_round_completed = True
+        else:
+            last_round_completed = False
         ctx = {
             "game": game,
             "user": user,
             "creator": creator,
             "rounds": rounds,
+            "round_count": round_count,
             "rounds_completed": rounds_completed,
+            "last_round_completed": last_round_completed,
         }
         return render(
             request,
@@ -324,5 +331,28 @@ class ResultsView(View):
         return render(
             request,
             template_name="results.html",
+            context=ctx,
+        )
+
+
+class ResultsJoinView(View):
+    def get(self, request, game_id):
+        game = Game.objects.get(id=game_id)
+        user = request.user
+        creator = game.creator_id
+        opponent = game.opponent_id
+        cres = game.creator_results
+        opres = game.opponent_results
+        winner = game.winner
+        ctx = {
+            "user": user,
+            "game": game,
+            "winner": winner,
+            "cres": cres,
+            "opres": opres,
+        }
+        return render(
+            request,
+            template_name="results_opp.html",
             context=ctx,
         )

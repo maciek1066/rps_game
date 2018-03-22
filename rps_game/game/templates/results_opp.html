@@ -3,13 +3,13 @@
 {% block content %}
     {% if user.username == winner.username and cres != opres %}
     <p>Congratulation {{ winner.username }}, you won!</p>
-    <p>score: {{ cres }}:{{ opres }}</p>
+    <p>score: {{ opres }}:{{ cres }}</p>
     {% elif cres == opres %}
     <p>remis!</p>
 
     {% else %}
     <p>u bad ;(</p>
-    <p>score: {{ cres }}:{{ opres }}</p>
+    <p>score: {{ opres }}:{{ cres }}</p>
     {% endif %}
 <a href="/lobby"><input type="button" value="Lobby"></a>
 {% endblock %}

@@ -29,6 +29,7 @@ from game.views import (
     JoinGameView,
     JoinRoundView,
     ResultsView,
+    ResultsJoinView,
 )
 
 urlpatterns = [
@@ -44,4 +45,5 @@ urlpatterns = [
     url('^join-game/(?P<game_id>(\d)+)$', JoinGameView.as_view(), name="join_game"),
     url('^join-game/(?P<game_id>(\d)+)/round/(?P<round_id>(\d)+)$', JoinRoundView.as_view(), name="join_round"),
     url('^game-view/(?P<game_id>(\d)+)/results/$', ResultsView.as_view(), name="results"),
+    url('^join-game/(?P<game_id>(\d)+)/results/$', ResultsJoinView.as_view(), name="results_join"),
 ]

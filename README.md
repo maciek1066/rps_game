@@ -1,2 +1,2 @@
 # rps_game
-rock paper scissors game 
+multiplayer rock paper scissors game 

@@ -3,9 +3,16 @@
 {% block content %}
 <p>Get ready {{ user.username }},
    You are playing against {{ creator.username }}</p>
-    {% for round in rounds %}
-<a href="{{ game.id }}/round/{{ round.id }}"><input type="button" value="Pick!"></a>
-    {% endfor %}
+{% for round in rounds %}
+    <a href="{{ game.id }}/round/{{ round.id }}"><input type="button" value="Pick!"></a>
+{% endfor %}
+
+{% for round in rounds_completed %}
+    {% if round.opponent_move != None and round.creator_move != None %}
+    <p>you played: <b>{{ round.get_opponent_move_display }}</b> vs
+        {{ creator.username }}: <b>{{ round.get_creator_move_display }}</b></p>
+    {% endif %}
+{% endfor %}
 
 {% endblock %}
 

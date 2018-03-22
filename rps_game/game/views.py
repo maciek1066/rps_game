@@ -149,12 +149,17 @@ class GameView(View):
         game = Game.objects.get(id=id)
         user = request.user
         game_creator = game.creator_id
+        opponent = game.opponent_id
         round_count = game.rounds.all().count()
+        rounds = game.rounds.filter(opponent_move=None)
+        rounds_completed = game.rounds.all().exclude(creator_move=None, opponent_move=None).order_by('-id')
         ctx = {
             "game": game,
             "user": user,
             "game_creator": game_creator,
             "round_count": round_count,
+            "rounds_completed": rounds_completed,
+            "opponent": opponent,
         }
         return render(
             request,
@@ -217,6 +222,7 @@ class JoinGameView(View):
         user = request.user
         creator = game.creator_id
         rounds = game.rounds.filter(opponent_move=None)
+        rounds_completed = game.rounds.all().exclude(creator_move=None, opponent_move=None).order_by('-id')
         if user.username != creator.username and game.opponent_id is None:
             game.opponent_id = user
             game.save()
@@ -227,6 +233,7 @@ class JoinGameView(View):
             "user": user,
             "creator": creator,
             "rounds": rounds,
+            "rounds_completed": rounds_completed,
         }
         return render(
             request,

@@ -14,6 +14,13 @@
         <p>Waiting for opponent...</p>
     {% endif %}
 
+{% for round in rounds_completed %}
+    {% if round.opponent_move != None and round.creator_move != None %}
+<p>you played: <b>{{ round.get_creator_move_display }}</b> vs
+    {{ opponent.username }}: <b>{{ round.get_opponent_move_display }}</b></p>
+    {% endif %}
+{% endfor %}
+
 {% endblock %}
 
 

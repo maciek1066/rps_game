@@ -8,7 +8,7 @@
     <a href="{{ game.id }}/round/{{ round.id }}"><input type="button" value="Pick!"></a>
 {% endfor %}
 
-{% if round_count ==  3 and last_round_completed %}
+{% if round_count ==  3 and game.completed == True %}
         <a href="{{ game.id }}/results/"><input type="button" value="see results"></a>
 {% endif %}
 

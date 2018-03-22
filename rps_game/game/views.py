@@ -149,10 +149,12 @@ class GameView(View):
         game = Game.objects.get(id=id)
         user = request.user
         game_creator = game.creator_id
+        round_count = game.rounds.all().count()
         ctx = {
             "game": game,
             "user": user,
             "game_creator": game_creator,
+            "round_count": round_count,
         }
         return render(
             request,

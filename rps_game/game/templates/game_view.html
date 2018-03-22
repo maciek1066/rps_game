@@ -1,13 +1,15 @@
 {% extends "main.html" %}
 
 {% block content %}
-    {% if game.opponent_id.username != None %}
+    {% if game.opponent_id.username != None and round_count <= 2 %}
         <p>Get ready {{ user.username }}, You are playing against {{ game.opponent_id.username }}</p>
         <form action="" method="POST">
             {% csrf_token %}
             {{ form.as_p }}
         <input type="submit" value="Pick!">
         </form>
+    {% elif round_count > 2 %}
+        <p>result link here</p>
     {% else %}
         <p>Waiting for opponent...</p>
     {% endif %}

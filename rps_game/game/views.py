@@ -14,6 +14,7 @@ from .forms import AddUserForm, LoginForm
 # Create your views here.
 
 
+# basic view with links to login/register
 class BasicView(View):
     def get(self, request):
         return render(
@@ -23,6 +24,7 @@ class BasicView(View):
         )
 
 
+# registration
 class AddUserView(View):
     def get(self, request):
         form = AddUserForm()
@@ -100,6 +102,7 @@ class UserLogoutView(View):
         return redirect("/login")
 
 
+# lobby with available games and link to game creation
 class LobbyView(View):
     @method_decorator(login_required)
     def get(self, request):
@@ -117,6 +120,7 @@ class LobbyView(View):
         )
 
 
+# game creation
 class LoggedUserView(View):
     def get(self, request):
         user = request.user
@@ -160,12 +164,69 @@ class GameView(View):
         game = Game.objects.get(id=id)
         user = request.user
         game_creator = game.creator_id
-        ctx = {
-            "game": game,
-            "user": user,
-        }
-        pass
+        if user == game_creator:
+            new_round = Round.objects.create(round=game)
+            ctx = {
+                "game": game,
+                "user": user,
+                "new_round": new_round,
+            }
+            return redirect("{}/round/{}".format(game.id, new_round.id))
+        return HttpResponse("You are not a game creator!")
 
 
 class GameRoundView(View):
-    pass
+    def get(self, request, id, round_id):
+        game = Game.objects.get(id=id)
+        user = request.user
+        game_creator = game.creator_id
+        round = Round.objects.get(id=round_id)
+        ctx = {
+            "game": game,
+            "round": round,
+            "user": user,
+        }
+        return render(
+            request,
+            template_name="round_view.html",
+            context=ctx,
+        )
+
+    def post(self, request, id, round_id):
+        game = Game.objects.get(id=id)
+        user = request.user
+        game_creator = game.creator_id
+        round = Round.objects.get(id=round_id)
+        if "rock" in request.POST:
+            round.creator_move = 1
+            round.save()
+        elif "paper" in request.POST:
+            round.creator_move = 2
+            round.save()
+        elif "scissors" in request.POST:
+            round.creator_move = 3
+            round.save()
+        return redirect("/game-view/{}".format(game.id))
+
+
+class JoinGameView(View):
+    def get(self, request, game_id):
+        game = Game.objects.get(id=game_id)
+        user = request.user
+        creator = game.creator_id
+        if user.username != creator.username and game.opponent_id is None:
+            game.opponent_id = user
+            game.save()
+        elif user.username == creator.username:
+            HttpResponse("You cannot play against yourself!")
+        ctx = {
+            "game": game,
+            "user": user,
+            "creator": creator,
+        }
+        return render(
+            request,
+            template_name="join_game.html",
+            context=ctx
+        )
+

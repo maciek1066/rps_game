@@ -26,6 +26,7 @@ from game.views import (
     LobbyView,
     GameView,
     GameRoundView,
+    JoinGameView,
 )
 
 urlpatterns = [
@@ -38,4 +39,5 @@ urlpatterns = [
     url('^lobby/$', LobbyView.as_view(), name="lobby"),
     url('^game-view/(?P<id>(\d)+)$', GameView.as_view(), name="game_view"),
     url('^game-view/(?P<id>(\d)+)/round/(?P<round_id>(\d)+)$', GameRoundView.as_view(), name="round"),
+    url('^join-game/(?P<game_id>(\d)+)$', JoinGameView.as_view(), name="join_game"),
 ]

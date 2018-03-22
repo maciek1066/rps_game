@@ -6,7 +6,7 @@
         <form action="" method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-        <a href="{% url 'round' %}"><input type="button" value="Pick!"></a>
+        <input type="submit" value="Pick!">
         </form>
     {% else %}
         <p>Waiting for opponent...</p>

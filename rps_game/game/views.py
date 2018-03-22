@@ -268,3 +268,8 @@ class JoinRoundView(View):
             round.opponent_move = 3
             round.save()
         return redirect("/join-game/{}".format(game.id))
+
+
+class ResultsView(View):
+    def get(self, request, game_id):
+        pass

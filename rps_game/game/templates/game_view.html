@@ -9,7 +9,7 @@
         <input type="submit" value="Pick!">
         </form>
     {% elif round_count > 2 %}
-        <p>result link here</p>
+        <a href="{{ game.id }}/results/"><input type="button" value="see results"></a>
     {% else %}
         <p>Waiting for opponent...</p>
     {% endif %}

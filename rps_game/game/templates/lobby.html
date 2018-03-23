@@ -1,6 +1,7 @@
 {% extends "main.html" %}
 
 {% block content %}
+{% load static %}
 <form action="" method="POST">
     {% csrf_token %}
     <a href="{% url 'logout' %}"><input type="button" value="logout"></a>
@@ -12,7 +13,7 @@
         <input type="button" value="Join"></a></p>
     <p>Created: {{ game.creation_time }}</p><br>
     {% endfor %}
-
+<script type="text/javascript" src="{% static 'js/refresh.js' %}"></script>
 {% endblock %}
 
 

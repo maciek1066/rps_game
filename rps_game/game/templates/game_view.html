@@ -1,6 +1,7 @@
 {% extends "main.html" %}
 
 {% block content %}
+{% load static %}
     {% if game.opponent_id.username != None and round_count <= 2 %}
         <p>{{ user.username }}, Playing against {{ game.opponent_id.username }}</p>
         <form action="" method="POST">
@@ -20,6 +21,7 @@
     {{ opponent.username }}: <b>{{ round.get_opponent_move_display }}</b></p>
     {% endif %}
 {% endfor %}
+<script type="text/javascript" src="{% static 'js/refresh_faster.js' %}"></script>
 {% endblock %}
 
 

@@ -1,6 +1,7 @@
 {% extends "main.html" %}
 
 {% block content %}
+{% load static %}
     {% if round_count < 3 %}
 <p>{{ user.username }}, Playing against {{ game.creator_id.username }}</p>
     {% endif %}
@@ -18,7 +19,7 @@
         {{ creator.username }}: <b>{{ round.get_creator_move_display }}</b></p>
     {% endif %}
 {% endfor %}
-
+<script type="text/javascript" src="{% static 'js/refresh_faster.js' %}"></script>
 {% endblock %}
 
 

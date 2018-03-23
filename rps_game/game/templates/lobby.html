@@ -6,6 +6,11 @@
     {% csrf_token %}
     <a href="{% url 'logout' %}"><input type="button" value="logout"></a>
     <h4>Hello {{ user.username }}!</h4>
+    {% if games_won == 1 %}
+    <p>You won {{ games_won }} game so far!</p>
+    {% else %}
+    <p>You won {{ games_won }} games so far!</p>
+    {% endif %}
     <a href="{% url 'create' %}"><input type="button" value="create game"></a>
 </form>
     {% for game in games %}

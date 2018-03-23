@@ -52,7 +52,7 @@ class AddUserView(View):
                     username=username,
                     password=password
                 )
-                return HttpResponse("Created new account")
+                return redirect("/login")
         ctx = {
             'form': form
         }
@@ -109,8 +109,11 @@ class LobbyView(View):
         user = request.user
         games = Game.objects.filter(opponent_id=None, completed=False)
         games = games.order_by('-creation_time')
+        games_won = user.won.all().count()
+
         ctx = {
             "games": games,
+            "games_won": games_won,
             "user": user,
         }
         return render(

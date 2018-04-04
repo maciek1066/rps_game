@@ -10,7 +10,7 @@
         <input type="submit" value="Pick!" class="btn btn-sm btn-primary">
         </form>
     {% elif round_count ==  3 and last_round_completed %}
-        <a href="{{ game.id }}/results/"><input type="button" value="see results"></a>
+        <a href="{{ game.id }}/results/"><input type="button" value="see results" class="btn btn-success"></a>
     {% else %}
         <p>Waiting for opponent...</p>
     {% endif %}

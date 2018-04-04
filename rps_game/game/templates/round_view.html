@@ -5,9 +5,9 @@
 <form action="" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" name="rock" value="rock">
-    <input type="submit" name="paper" value="paper">
-    <input type="submit" name="scissors" value="scissors">
+    <input type="submit" name="rock" value="rock" class="btn btn-secondary">
+    <input type="submit" name="paper" value="paper" class="btn btn-light">
+    <input type="submit" name="scissors" value="scissors" class="btn btn-danger">
 </form>
 <script type="text/javascript" src="{% static 'js/refresh.js' %}"></script>
 {% endblock %}

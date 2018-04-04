@@ -6,11 +6,11 @@
 <p>{{ user.username }}, Playing against {{ game.creator_id.username }}</p>
     {% endif %}
 {% for round in rounds %}
-    <a href="{{ game.id }}/round/{{ round.id }}"><input type="button" value="Pick!"></a>
+    <a href="{{ game.id }}/round/{{ round.id }}"><input type="button" value="Pick!" class="btn btn-sm btn-primary"></a>
 {% endfor %}
 
 {% if round_count ==  3 and game.completed == True %}
-        <a href="{{ game.id }}/results/"><input type="button" value="see results"></a>
+        <a href="{{ game.id }}/results/"><input type="button" value="see results" class="btn btn-success"></a>
 {% endif %}
 
 {% for round in rounds_completed %}

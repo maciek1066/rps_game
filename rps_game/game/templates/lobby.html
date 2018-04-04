@@ -4,18 +4,19 @@
 {% load static %}
 <form action="" method="POST">
     {% csrf_token %}
-    <a href="{% url 'logout' %}"><input type="button" value="logout"></a><br><br>
     <h4>Hello {{ user.username }}!</h4>
     {% if games_won == 1 %}
     <p>You won {{ games_won }} game so far!</p>
     {% else %}
     <p>You won {{ games_won }} games so far!</p>
     {% endif %}
-    <a href="{% url 'create' %}"><input type="button" value="create game"></a>
-</form>
+    <a href="{% url 'create' %}"><input type="button" value="create game" class="btn btn-info"></a>
+</form><br>
+
+<p>List of avaible games:</p>
     {% for game in games %}
     <p>Player :{{ game.creator_id.username }}<a href="/join-game/{{ game.id }}">
-        <input type="button" value="Join"></a></p>
+        <input type="button" value="Join" class="btn btn-sm btn-success"></a></p>
     <p>Created: {{ game.creation_time }}</p><br>
     {% endfor %}
 <script type="text/javascript" src="{% static 'js/refresh.js' %}"></script>

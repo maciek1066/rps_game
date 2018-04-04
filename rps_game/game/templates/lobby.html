@@ -4,7 +4,7 @@
 {% load static %}
 <form action="" method="POST">
     {% csrf_token %}
-    <a href="{% url 'logout' %}"><input type="button" value="logout"></a>
+    <a href="{% url 'logout' %}"><input type="button" value="logout"></a><br><br>
     <h4>Hello {{ user.username }}!</h4>
     {% if games_won == 1 %}
     <p>You won {{ games_won }} game so far!</p>

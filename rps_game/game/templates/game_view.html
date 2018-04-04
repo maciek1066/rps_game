@@ -7,7 +7,7 @@
         <form action="" method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-        <input type="submit" value="Pick!">
+        <input type="submit" value="Pick!" class="btn btn-sm btn-primary">
         </form>
     {% elif round_count ==  3 and last_round_completed %}
         <a href="{{ game.id }}/results/"><input type="button" value="see results"></a>

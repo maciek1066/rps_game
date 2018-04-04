@@ -19,8 +19,8 @@
     <h3>Hello {{ user.username }}</h3>
     <a href="{% url 'lobby' %}"><input type="button"value="go to lobby"></a>
     {% else %}
-    <a href="{% url 'register' %}">register account</a><br>
-    <a href="{% url 'login' %}">log in</a>
+    <a href="{% url 'register' %}"><button type="button" class="btn btn-primary">register account</button></a><br>
+    <a href="{% url 'login' %}"><button type="button" class="btn btn-primary">log in</button></a>
     {% endif %}
     {% endblock %}
 </div>

@@ -16,7 +16,7 @@
         {% if user.is_authenticated %}
         <a href="{% url 'logout' %}" class="float-sm-right"><button class="btn btn-outline-secondary" type="submit">Logout</button></a>
         {% else %}
-        <div class="float-sm-right">
+        <div class="float-right">
         <a href="{% url 'login' %}" class="btn btn-outline-info">Login</a>
         <a href="{% url 'register' %}" class="btn btn-outline-info">Register</a>
         </div>
